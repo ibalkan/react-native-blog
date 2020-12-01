@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { Context } from '../context/BlogContext';
-import {Feather} from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 
-const IndexScreen = () => {
+const IndexScreen = ({ navigation }) => {
     const { state, addBlogPost, deleteBlogPost } = useContext(Context);
    
     return (
@@ -15,19 +15,40 @@ const IndexScreen = () => {
              keyExtractor={(blogPost) => blogPost.title}
              renderItem={({item}) => {
                 return (
-                <View style={styles.row}>
-                    <Text style={styles.title}>{item.title} - {item.id}</Text>
-                    <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                  <TouchableOpacity onPress={() => navigation.navigate("Show", { postId: item.id} )}>
+                    <View style={styles.row}>
+                      <Text style={styles.title}>
+                        {item.title} - {item.id}
+                      </Text>
+                      <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                         <Feather style={styles.icon} name="trash" />
-                    </TouchableOpacity>
-                    
-                </View>
+                      </TouchableOpacity>
+                    </View>
+                  </TouchableOpacity>
                 );
              }}
             />
         </View>
     );
 }
+// const IndexScreen = () => {
+//     return (
+//         <Stack.Navigator>
+//             <Index.Screen 
+//              name="Index"
+//              component={IndexScreen}
+//              options={{ headerRight: <Feather name="plus" size={30}/>}}
+//             />
+//         </Stack.Navigator>
+//     );
+// };
+
+
+// IndexScreen.navigationOptions = () => {
+//     return {
+//         headerRight: <Feather name="plus" size={30}/>
+//     };
+// };
 
 const styles = StyleSheet.create({
     row: {
