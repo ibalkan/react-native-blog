@@ -9,6 +9,7 @@ import { Provider } from './src/context/BlogContext';
 import ShowScreen from './src/screens/ShowScreen';
 import CreateScreen from './src/screens/CreateScreen';
 import { Feather } from '@expo/vector-icons';
+import EditScreen from './src/screens/EditScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,8 +28,19 @@ function App() {
           name="Index"
           component={IndexScreen}
         />
-        <Stack.Screen name="Show" component={ShowScreen} />
+        <Stack.Screen 
+          //  options={({ navigation }) => ({
+          //   headerRight: () => (
+          //     <TouchableOpacity onPress={() => navigation.navigate("Edit") }>
+          //       <Feather name="edit" size={25} /> 
+          //     </TouchableOpacity>
+          //   )
+          // })}
+          name="Show" 
+          component={ShowScreen}
+        />
         <Stack.Screen name="Create" component={CreateScreen} />
+        <Stack.Screen name="Edit" component={EditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

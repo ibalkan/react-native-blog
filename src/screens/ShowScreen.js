@@ -1,10 +1,26 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, addons } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { Context } from '../context/BlogContext';
+import { Feather } from '@expo/vector-icons';
 
-const ShowScreen = ({route}) => {
+const ShowScreen = ({route, navigation }) => {
     // const { postId } = route.params;
-    
+    // navigation.setOptions({
+    //     headerRight: () => (
+    //         <Button onPress={() => setCount(c => c + 1)} title="Update count" />
+    //     )
+    // })
+
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+          headerRight: () => (
+                <TouchableOpacity onPress={() => navigation.navigate("Edit", {id: route.params?.postId})}>
+                    <Feather name="edit" size={25} />
+                </TouchableOpacity>
+          ),
+        });
+      }, [navigation]);
+
     const { state } = useContext(Context);
 
     const blogPost = state.find((blogPost) => blogPost.id === route.params?.postId);
@@ -15,6 +31,8 @@ const ShowScreen = ({route}) => {
         </View>
     );
 }
+
+
 
 const styles = StyleSheet.create({});
 
